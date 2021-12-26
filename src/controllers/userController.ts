@@ -2,16 +2,35 @@ import { NextFunction, Request, Response } from 'express';
 import { User } from '../models/User';
 
 export const newUser = async (req: Request, res: Response) => {
-  try {
-    if (req.body.name !== undefined) {
-      let username: string = req.body.name
-      User.build({username})
+  let name: string = req.body.name;
+  let age: number = req.body.age;
 
-      if (req.body.age !== undefined) {
-        let userage: number = req.body.age
-        User.build({userage})
+  try {
+    if (name == undefined || name == '') {
+      res.status(422).json({ message: 'Name is required' });
+      return;
+    }
+
+    if (age == undefined || age == null) {
+      res.status(422).json({ message: 'Age is required' });
+      return;
+    }
+
+    if (name) {
+      let username: string = name
+      User.build({username}).save()
+
+      if (age) {
+        let userage: number = age
+        User.build({userage}).save()
       }
     }
+    // if (name && age) {
+    //   // await User.create({ name, age })
+    //   //   .then(res => console.log(res))
+    //   //   .catch(err => console.log(err))
+    //   await User.build({ name, age }).save()
+    // }
 
     return res.status(200).json({
       message: 'usuario criado',
@@ -23,16 +42,6 @@ export const newUser = async (req: Request, res: Response) => {
       message: 'deu ruim carai',
     });
   }
-  
-  // if (name) {
-  //   const newUser = User.build({ name });
-
-  //   if(age) {
-  //     newUser.age = parseInt(age);
-  //   }
-
-  //   await newUser.save();
-  // }
 }
 
 export const users = async (req: Request, res: Response) => {
