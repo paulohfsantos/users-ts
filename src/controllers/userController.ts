@@ -22,21 +22,19 @@ export const newUser = async (req: Request, res: Response) => {
         .then((result) => {
           console.log(result);
           res.status(200).json({
-            message: 'usuario criado',
+            message: 'user created',
           })
         })
         .catch(err => {
           console.log('erro aqui => ', err);
           res.status(500).json({
-            message: 'usuario nao criado',
+            message: 'user has not been created',
           })
         })
     }
   } catch (error) {
-    console.log('esse é o erro carai =>', error);
-    
     return res.status(500).json({
-      message: 'deu ruim carai',
+      message: 'internal server error',
     });
   }
 }
