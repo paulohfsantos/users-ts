@@ -5,11 +5,8 @@ backend development and CRUD operations.
 
 ## Techs:
 
-`NodeJS`;
-`ExpressJS`;
-`PostgreSQL`;
-`Typescript`;
-`Sequelize`;
+Backend: `NodeJS`, `ExpressJS`, `Typescript`
+Database: `PostgreSQL`, `Sequelize`,
 
 ```bash
 
