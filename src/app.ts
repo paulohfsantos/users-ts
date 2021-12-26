@@ -8,9 +8,9 @@ dotenv.config({
 })
 
 const app = express()
-app.use(routes)
-// app.use(cors())
+// before routes
 app.use(express.json())
+app.use(routes)
 app.use(express.urlencoded({ extended: true }));
 
 const port = process.env.PORT || 3000

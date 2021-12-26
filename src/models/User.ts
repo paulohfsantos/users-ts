@@ -2,7 +2,7 @@ import { Model, DataTypes } from "sequelize";
 import { sequelize } from "../db/postgres";
 
 interface UserAttributes extends Model {
-  id: number;
+  id?: number;
   name: string;
   age: number;
 }
@@ -10,7 +10,8 @@ interface UserAttributes extends Model {
 const userTable = {
   id: {
     primaryKey: true,
-    type: DataTypes.INTEGER
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
   },
 
   name: {
