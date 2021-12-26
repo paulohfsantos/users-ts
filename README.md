@@ -5,7 +5,18 @@ backend development and CRUD operations.
 
 ## Techs:
 
-`NodeJS`,
-`ExpressJS`,
-`PostgreSQL`,
-`Sequelize`
+`NodeJS`;
+`ExpressJS`;
+`PostgreSQL`;
+`Typescript`;
+`Sequelize`;
+
+```bash
+
+# install dependencies
+$ npm install
+
+# execute the node server in development mode
+$ npm run dev
+
+```
