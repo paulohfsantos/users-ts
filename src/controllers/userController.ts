@@ -1,5 +1,23 @@
 import { Request, Response } from 'express';
 import { User } from '../models/User';
+import { usersService } from '../services/usersService';
+
+export const userController = {
+  users: async (req: Request, res: Response) => { },
+  user: async (req: Request, res: Response) => { },
+  newUser: async (req: Request, res: Response) => {
+    try {
+      const user = await usersService.createNew(req, res);
+      return user;
+    } catch (err) {
+      res.status(500).json({
+        error: 'Internal server error'
+      })
+    }
+  },
+  updateUser: async (req: Request, res: Response) => { },
+  deleteUser: async (req: Request, res: Response) => { }
+}
 
 export const users = async (req: Request, res: Response) => {
   return await User.findAll()
@@ -18,42 +36,6 @@ export const user = async (req: Request, res: Response) => {
     res.status(500).json({
       message: 'internal server error',
     })
-  }
-}
-
-export const newUser = async (req: Request, res: Response) => {
-  let name: string = req.body.name;
-  let age: number = req.body.age;
-
-  try {
-    if (name == undefined || name == '') {
-      res.status(422).json({ message: 'Name is required' });
-      return;
-    }
-
-    if (age == undefined || age == null) {
-      res.status(422).json({ message: 'Age is required' });
-      return;
-    }
-
-
-    if (name && age) {
-      await User.create({ name, age })
-        .then(() => {
-          res.status(200).json({
-            message: 'user created',
-          })
-        })
-        .catch(() => {
-          res.status(500).json({
-            message: 'user has not been created',
-          })
-        })
-    }
-  } catch (error) {
-    return res.status(500).json({
-      message: 'internal server error',
-    });
   }
 }
 

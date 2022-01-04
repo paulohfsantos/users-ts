@@ -1,13 +1,30 @@
 import { Request, Response } from 'express';
+import { homeService } from '../services/homeService';
 
-export const home = async (req: Request, res: Response) => {
-  res.status(200).json({
-    message: 'Welcome to the home route',
-  })
-}
+export const homeController = {
+  home: async (req: Request, res: Response) => {
+    try {
+      const home = res.status(200)
+        .json(homeService.getHomeMsg());
 
-export const ping = async (req: Request, res: Response) => {
-  res.status(200).json({
-    message: 'pong',
-  })
+      return home
+    } catch (err) {
+      res.status(500).json({
+        error: 'Internal server error'
+      })
+    }
+  },
+
+  ping: (req: Request, res: Response) => {
+    try {
+      const ping = res.status(200)
+        .json(homeService.getPingMsg());
+
+      return ping
+    } catch (err) {
+      res.status(500).json({
+        error: 'Internal server error'
+      })
+    }
+  }
 }
