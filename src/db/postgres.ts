@@ -10,5 +10,10 @@ export const sequelize = new Sequelize(
   {
     dialect: 'postgres',
     port: parseInt(process.env.PG_HOST as string),
+    protocol: 'postgres',
+    dialectOptions: {
+      ssl: true,
+      rejectUnauthorized: false,
+    }
   }
 )
