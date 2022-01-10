@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { homeController } from '../controllers/homeController'
-import * as UserController from '../controllers/userController'
+// import * as UserController from '../controllers/userController'
 import { userController } from '../controllers/userController'
 
 const route = Router()
@@ -9,12 +9,10 @@ const route = Router()
 route.get('/', homeController.home)
 route.get('/ping', homeController.ping)
 // user controller
-route.get('/users', UserController.users)
-route.get('/user/:id', UserController.user)
-
+route.get('/users', userController.users)
+route.get('/user/:id', userController.user)
 route.post('/user', userController.newUser)
-
-route.put('/user/:id', UserController.updateUser)
-route.delete('/user/:id', UserController.deleteUser)
+route.put('/user/:id', userController.updateUser)
+route.delete('/user/:id', userController.deleteUser)
 
 export default route

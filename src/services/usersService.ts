@@ -3,13 +3,8 @@ import { User } from "../models/User"
 
 export const usersService = {
   getAllUsers: async () => {
-    try {
-      const users = await User.findAll();
-
-      return { users };
-    } catch (error) {
-      throw error
-    }
+    const users = await User.findAll();
+    return { users };
   },
 
   createNew: async (bodyParams: Request, resParams: Response) => {
@@ -43,6 +38,52 @@ export const usersService = {
         })
 
       return user;
+    }
+  },
+
+  getUser: async (id: number) => {
+    if (id) {
+      const user = await User.findOne({ where: { id } })
+        .then(result => {
+          return result
+        })
+
+      return user;
+    }
+  },
+  
+  updateUser: async (id: number, bodyParams: Request, resParams: Response) => {
+    let name: string = bodyParams.body.name;
+    let age: number = bodyParams.body.age;
+
+    const user = await User.update({ name, age }, { where: { id } })
+      .then(result => {
+        resParams.status(200).json({
+          message: 'user updated',
+        })
+        return { user: result }
+      })
+      .catch(() => {
+        resParams.status(500).json({
+          message: 'user has not been updated',
+        })
+      })
+
+    return user;
+  },
+
+  deleteUser: async (id: number, resParams: Response) => {
+    if (id) {
+      const user = await User.destroy({ where: { id } })
+      resParams.status(200).json({
+        message: 'User deleted',
+      });
+
+      return user;
+    } else {
+      return resParams.status(404).json({
+        message: 'User not found',
+      })
     }
   }
 }
